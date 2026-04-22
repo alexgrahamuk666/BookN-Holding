@@ -1,2 +1,1217 @@
-BookN.uk<br />
-BookN.co.uk
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BookN – Booking On Steroids | Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --sky: #00AEEF;
+    --navy: #1A2E5A;
+    --coral: #FF5A5F;
+    --mint: #00C896;
+    --amber: #FFB800;
+    --soft: #F4F8FF;
+    --white: #ffffff;
+    --text: #1A2E5A;
+    --muted: #5A6A8A;
+    --radius: 20px;
+    --card-radius: 24px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--soft);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid rgba(0,174,239,0.15);
+    animation: slideDown 0.6s ease;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .logo {
+    display: flex; align-items: center; gap: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem; font-weight: 900;
+    letter-spacing: -2px;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo .book { color: var(--navy); }
+  .logo .n-block {
+    background: var(--sky);
+    color: var(--white);
+    padding: 0 10px 2px;
+    border-radius: 10px;
+    display: inline-block;
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0 var(--navy);
+  }
+  .logo .dot { color: var(--coral); font-size: 2.4rem; line-height: 0; vertical-align: -4px; }
+
+  .coming-soon-badge {
+    background: var(--coral);
+    color: white; font-weight: 800;
+    padding: 8px 22px; border-radius: 50px;
+    font-size: 0.9rem; letter-spacing: 1px;
+    box-shadow: 3px 3px 0 var(--navy);
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 60px;
+    padding: 120px 6% 80px;
+    background: linear-gradient(135deg, #E8F6FF 0%, #F4F8FF 50%, #E8FFF6 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,174,239,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,200,150,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber);
+    color: var(--navy);
+    font-weight: 800; font-size: 0.85rem;
+    padding: 6px 16px; border-radius: 50px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-eyebrow span { font-size: 1rem; }
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  h1 em { color: var(--sky); font-style: normal; }
+
+  .hero-sub {
+    font-size: 1.2rem; line-height: 1.7;
+    color: var(--muted); font-weight: 600;
+    max-width: 500px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 800; font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .btn:hover { transform: translateY(-3px); }
+  .btn-primary {
+    background: var(--sky); color: white;
+    box-shadow: 4px 4px 0 var(--navy);
+  }
+  .btn-primary:hover { box-shadow: 6px 6px 0 var(--navy); }
+  .btn-outline {
+    background: white; color: var(--navy);
+    border: 3px solid var(--navy);
+    box-shadow: 4px 4px 0 var(--navy);
+  }
+  .btn-outline:hover { box-shadow: 6px 6px 0 var(--navy); }
+
+  /* ── CALENDAR WIDGET ── */
+  .hero-visual {
+    position: relative; z-index: 2;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .calendar-card {
+    background: white;
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 8px 12px 0 var(--navy);
+    border: 3px solid var(--navy);
+    max-width: 420px; margin: 0 auto;
+  }
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .cal-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--navy); }
+  .cal-nav { display: flex; gap: 8px; }
+  .cal-nav button {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid var(--navy); background: var(--soft);
+    font-weight: 900; font-size: 1rem; cursor: pointer;
+    color: var(--navy); transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cal-nav button:hover { background: var(--sky); color: white; border-color: var(--sky); }
+  .cal-days-header {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 4px; margin-bottom: 8px;
+    text-align: center; font-size: 0.75rem; font-weight: 800;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-cell {
+    aspect-ratio: 1; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
+    position: relative;
+  }
+  .cal-cell:hover { background: var(--sky); color: white; }
+  .cal-cell.empty { cursor: default; }
+  .cal-cell.today { background: var(--navy); color: white; }
+  .cal-cell.booked::after {
+    content: '';
+    position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+    width: 5px; height: 5px; border-radius: 50%;
+  }
+  .cal-cell.booked-sky::after { background: var(--sky); }
+  .cal-cell.booked-coral::after { background: var(--coral); }
+  .cal-cell.booked-mint::after { background: var(--mint); }
+  .cal-cell.booked-amber::after { background: var(--amber); }
+
+  .cal-upcoming {
+    margin-top: 20px; border-top: 2px dashed #E0EAFB; padding-top: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .cal-appt {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--soft); border-radius: 12px;
+    padding: 10px 14px;
+  }
+  .appt-dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+  }
+  .appt-info { flex: 1; }
+  .appt-name { font-weight: 800; font-size: 0.85rem; color: var(--navy); }
+  .appt-time { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+  .appt-staff {
+    font-size: 0.75rem; font-weight: 800;
+    background: white; border-radius: 50px;
+    padding: 3px 10px; color: var(--muted);
+  }
+
+  /* ── SECTION STYLES ── */
+  section { padding: 100px 6%; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 0.8rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--sky);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: block; width: 24px; height: 3px;
+    background: var(--sky); border-radius: 2px;
+  }
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  h2 em { color: var(--sky); font-style: normal; }
+  h2 .coral { color: var(--coral); }
+  h2 .mint { color: var(--mint); }
+  h2 .amber { color: var(--amber); }
+
+  .section-intro {
+    font-size: 1.15rem; color: var(--muted); font-weight: 600;
+    max-width: 600px; line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  /* ── USE CASES ── */
+  .use-cases { background: var(--navy); }
+  .use-cases .section-label { color: var(--amber); }
+  .use-cases .section-label::before { background: var(--amber); }
+  .use-cases h2 { color: white; }
+  .use-cases h2 em { color: var(--amber); }
+  .use-cases .section-intro { color: rgba(255,255,255,0.7); }
+
+  .tags-cloud {
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 50px;
+    font-weight: 800; font-size: 0.95rem;
+    border: 2px solid rgba(255,255,255,0.2);
+    color: white; transition: all 0.2s;
+    animation: tagPop 0.4s ease both;
+  }
+  .tag:hover { transform: translateY(-3px) scale(1.04); border-color: var(--amber); }
+  .tag .tag-icon { font-size: 1.1rem; }
+  .tag-1 { background: rgba(0,174,239,0.2); }
+  .tag-2 { background: rgba(255,90,95,0.2); }
+  .tag-3 { background: rgba(0,200,150,0.2); }
+  .tag-4 { background: rgba(255,184,0,0.2); }
+  @keyframes tagPop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+  /* ── HOW IT WORKS (123) ── */
+  .how { background: white; }
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; margin-top: 60px;
+  }
+  .step {
+    background: var(--soft);
+    border-radius: var(--card-radius);
+    padding: 40px 32px;
+    border: 3px solid transparent;
+    position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .step:hover { transform: translateY(-6px); box-shadow: 8px 8px 0 var(--navy); border-color: var(--navy); }
+  .step-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 5rem; font-weight: 900;
+    line-height: 1; margin-bottom: 20px;
+    opacity: 0.12; position: absolute;
+    top: 16px; right: 20px;
+    color: var(--navy);
+  }
+  .step-icon {
+    font-size: 2.5rem; margin-bottom: 16px;
+    display: block;
+  }
+  .step h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--navy); margin-bottom: 12px;
+  }
+  .step p { color: var(--muted); font-weight: 600; line-height: 1.6; }
+  .step-1 { border-top: 5px solid var(--sky); }
+  .step-2 { border-top: 5px solid var(--coral); }
+  .step-3 { border-top: 5px solid var(--mint); }
+
+  /* ── FEATURES GRID ── */
+  .features { background: var(--soft); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .feature-card {
+    background: white;
+    border-radius: var(--card-radius);
+    padding: 32px 28px;
+    border: 3px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 0 var(--navy);
+    border-color: var(--navy);
+  }
+  .feature-card.wide { grid-column: span 2; }
+  .feature-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 20px;
+    border: 2px solid rgba(0,0,0,0.08);
+  }
+  .fi-sky { background: rgba(0,174,239,0.12); }
+  .fi-coral { background: rgba(255,90,95,0.12); }
+  .fi-mint { background: rgba(0,200,150,0.12); }
+  .fi-amber { background: rgba(255,184,0,0.12); }
+  .fi-navy { background: rgba(26,46,90,0.08); }
+  .feature-card h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 800;
+    font-size: 1.1rem; color: var(--navy); margin-bottom: 10px;
+  }
+  .feature-card p { color: var(--muted); font-weight: 600; line-height: 1.65; font-size: 0.95rem; }
+  .feature-tag {
+    position: absolute; top: 20px; right: 20px;
+    background: var(--amber); color: var(--navy);
+    font-size: 0.7rem; font-weight: 900; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 50px;
+  }
+
+  /* ── EMBED OPTIONS ── */
+  .embed { background: white; }
+  .embed-options {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; margin-top: 16px;
+  }
+  .embed-card {
+    background: var(--soft);
+    border-radius: var(--card-radius);
+    padding: 36px 28px; text-align: center;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .embed-card:hover {
+    border-color: var(--sky); background: white;
+    box-shadow: 6px 6px 0 var(--sky);
+    transform: translateY(-4px);
+  }
+  .embed-visual {
+    width: 80px; height: 80px; border-radius: 20px;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem;
+    border: 3px solid var(--navy);
+  }
+  .embed-v1 { background: var(--sky); }
+  .embed-v2 { background: var(--coral); }
+  .embed-v3 { background: var(--mint); }
+  .embed-card h3 { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--navy); margin-bottom: 10px; }
+  .embed-card p { color: var(--muted); font-weight: 600; font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── SUBSCRIPTIONS ── */
+  .pricing { background: linear-gradient(135deg, #E8F6FF, #F4F8FF); }
+  .plans {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; align-items: start;
+  }
+  .plan {
+    background: white; border-radius: var(--card-radius);
+    padding: 36px 28px; border: 3px solid #E0EAFB;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .plan:hover { transform: translateY(-5px); }
+  .plan.featured {
+    background: var(--navy); border-color: var(--navy);
+    color: white; transform: scale(1.04);
+    box-shadow: 8px 8px 0 var(--sky);
+  }
+  .plan.featured:hover { transform: scale(1.04) translateY(-5px); }
+  .plan-label {
+    font-size: 0.75rem; font-weight: 900; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 12px;
+    display: block;
+  }
+  .plan:not(.featured) .plan-label { color: var(--sky); }
+  .plan.featured .plan-label { color: var(--amber); }
+  .plan-name {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 1.5rem; margin-bottom: 6px;
+    color: var(--navy);
+  }
+  .plan.featured .plan-name { color: white; }
+  .plan-price {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 2.2rem; color: var(--sky); margin-bottom: 4px;
+  }
+  .plan.featured .plan-price { color: var(--amber); }
+  .plan-sub { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-bottom: 28px; }
+  .plan.featured .plan-sub { color: rgba(255,255,255,0.6); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.9rem; font-weight: 600; color: var(--muted);
+    line-height: 1.4;
+  }
+  .plan.featured .plan-features li { color: rgba(255,255,255,0.75); }
+  .plan-features li::before {
+    content: '✓'; flex-shrink: 0;
+    font-weight: 900; color: var(--mint); font-size: 0.95rem;
+    margin-top: 1px;
+  }
+  .plan.featured .plan-features li::before { color: var(--amber); }
+  .plan-divider { border: none; border-top: 2px dashed #E0EAFB; margin: 20px 0; }
+  .plan.featured .plan-divider { border-color: rgba(255,255,255,0.2); }
+  .coming-soon-note {
+    text-align: center; margin-top: 40px;
+    background: white; border-radius: var(--radius);
+    padding: 24px 32px; border: 3px solid var(--navy);
+    box-shadow: 4px 4px 0 var(--navy);
+    display: inline-block; width: 100%;
+  }
+  .coming-soon-note p { font-weight: 800; font-size: 1.1rem; color: var(--navy); }
+  .coming-soon-note span { color: var(--coral); }
+
+  /* ── AI & SMART ── */
+  .smart { background: var(--navy); }
+  .smart h2 { color: white; }
+  .smart .section-label { color: var(--mint); }
+  .smart .section-label::before { background: var(--mint); }
+  .smart .section-intro { color: rgba(255,255,255,0.7); }
+  .smart-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .smart-card {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: var(--card-radius); padding: 32px;
+    transition: all 0.2s;
+  }
+  .smart-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--mint);
+    transform: translateY(-4px);
+  }
+  .smart-card .feature-icon { border-color: rgba(255,255,255,0.15); }
+  .smart-card h3 { color: white; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; }
+  .smart-card p { color: rgba(255,255,255,0.65); font-weight: 600; line-height: 1.65; font-size: 0.95rem; }
+
+  /* ── PORTALS ── */
+  .portals { background: var(--soft); }
+  .portals-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .portal-card {
+    border-radius: var(--card-radius); padding: 40px 32px;
+    border: 3px solid var(--navy);
+    box-shadow: 6px 6px 0 var(--navy);
+    transition: transform 0.2s;
+  }
+  .portal-card:hover { transform: translateY(-4px); }
+  .portal-card.pc-admin { background: var(--navy); }
+  .portal-card.pc-staff { background: var(--sky); }
+  .portal-card.pc-customer { background: var(--mint); }
+  .portal-card h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 1.4rem; margin-bottom: 8px; color: white;
+  }
+  .portal-card.pc-customer h3 { color: var(--navy); }
+  .portal-card p { color: rgba(255,255,255,0.8); font-weight: 600; line-height: 1.6; font-size: 0.95rem; margin-bottom: 20px; }
+  .portal-card.pc-customer p { color: rgba(26,46,90,0.75); }
+  .portal-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .portal-list li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.9);
+  }
+  .portal-card.pc-customer .portal-list li { color: var(--navy); }
+  .portal-list li::before { content: '→'; font-weight: 900; }
+
+  /* ── BIG SCREEN MODE ── */
+  .bigscreen { background: white; }
+  .bigscreen-demo {
+    background: var(--navy);
+    border-radius: 28px; padding: 40px;
+    border: 4px solid var(--navy);
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.15);
+    margin-top: 50px;
+  }
+  .bs-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .bs-logo { display: flex; align-items: center; gap: 12px; }
+  .bs-logo-icon {
+    width: 48px; height: 48px; background: var(--sky); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 900; color: white;
+    font-family: 'Poppins', sans-serif;
+  }
+  .bs-logo-text { color: white; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.2rem; }
+  .bs-logo-sub { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-weight: 600; }
+  .bs-time { color: var(--amber); font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 2.5rem; }
+  .bs-queue { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .bs-now {
+    background: var(--sky); border-radius: 20px; padding: 24px;
+  }
+  .bs-label { font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .bs-now .bs-label { color: rgba(255,255,255,0.7); }
+  .bs-now .bs-name { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 1.8rem; color: white; }
+  .bs-now .bs-info { color: rgba(255,255,255,0.75); font-weight: 600; font-size: 0.9rem; margin-top: 6px; }
+  .bs-next { display: flex; flex-direction: column; gap: 12px; }
+  .bs-next .bs-label { color: rgba(255,255,255,0.5); }
+  .bs-next-item {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 14px 18px;
+  }
+  .bs-next-time { color: var(--amber); font-weight: 900; font-size: 1rem; min-width: 48px; }
+  .bs-next-name { color: white; font-weight: 700; font-size: 0.95rem; }
+  .bs-next-service { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-weight: 600; }
+  .bs-pulse {
+    display: inline-block; width: 10px; height: 10px;
+    background: var(--mint); border-radius: 50%;
+    margin-right: 8px;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+  /* ── DOMAIN / SUBDOMAIN ── */
+  .domain { background: linear-gradient(135deg, #E8FFF6, #F4F8FF); }
+  .domain-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .domain-card {
+    background: white; border-radius: var(--card-radius);
+    padding: 36px 32px; border: 3px solid var(--navy);
+    box-shadow: 6px 6px 0 var(--navy);
+    transition: transform 0.2s;
+  }
+  .domain-card:hover { transform: translateY(-4px); }
+  .domain-url {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 1.3rem; color: var(--sky); margin-bottom: 8px;
+    word-break: break-all;
+  }
+  .domain-card h3 { font-family: 'Poppins', sans-serif; font-weight: 800; color: var(--navy); margin-bottom: 10px; font-size: 1.1rem; }
+  .domain-card p { color: var(--muted); font-weight: 600; line-height: 1.6; }
+  .free-pill {
+    display: inline-block; background: var(--mint); color: var(--navy);
+    font-size: 0.75rem; font-weight: 900; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 14px;
+    border-radius: 50px; margin-bottom: 14px;
+  }
+  .paid-pill {
+    display: inline-block; background: var(--amber); color: var(--navy);
+    font-size: 0.75rem; font-weight: 900; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 14px;
+    border-radius: 50px; margin-bottom: 14px;
+  }
+
+  /* ── COMING SOON CTA ── */
+  .cta-section {
+    background: var(--sky);
+    text-align: center; padding: 100px 6%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; top: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute; bottom: -80px; right: -80px;
+    width: 350px; height: 350px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .cta-section h2 { color: white; margin-bottom: 16px; }
+  .cta-section .section-intro { color: rgba(255,255,255,0.85); margin: 0 auto 40px; }
+  .cta-badge {
+    display: inline-block;
+    background: var(--navy); color: white;
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 1.5rem; padding: 20px 48px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+    position: relative; z-index: 1;
+  }
+  .cta-url { color: var(--amber); }
+  .cta-sub {
+    color: rgba(255,255,255,0.7); font-weight: 700;
+    margin-top: 24px; font-size: 1rem;
+    position: relative; z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.5);
+    text-align: center; padding: 40px 6%;
+    font-weight: 600; font-size: 0.9rem;
+  }
+  footer strong { color: white; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .plans { grid-template-columns: repeat(2, 1fr); }
+    .plan.featured { transform: none; }
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 100px 5% 60px; }
+    .hero-visual { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .embed-options { grid-template-columns: 1fr; }
+    .portals-grid { grid-template-columns: 1fr; }
+    .smart-grid { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+    .domain-cards { grid-template-columns: 1fr; }
+    .features-grid .feature-card.wide { grid-column: span 1; }
+    .bs-queue { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <span class="book">Book</span><span class="n-block">N</span><span class="dot">.</span>
+  </a>
+  <span class="coming-soon-badge">Coming Soon</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow"><span>🚀</span> Booking On Steroids</div>
+    <h1>The booking system that <em>does it all.</em></h1>
+    <p class="hero-sub">
+      From hair salons to caravans, doctors to party entertainers — BookN is the endlessly configurable booking platform built for real businesses, not developers.
+    </p>
+    <div class="hero-cta">
+      <span class="btn btn-primary">🎉 Coming Soon at bookn.uk</span>
+      <span class="btn btn-outline">⬇ Explore Features</span>
+    </div>
+  </div>
+
+  <!-- CALENDAR WIDGET -->
+  <div class="hero-visual">
+    <div class="calendar-card">
+      <div class="cal-header">
+        <span class="cal-title">📅 May 2025</span>
+        <div class="cal-nav">
+          <button>‹</button>
+          <button>›</button>
+        </div>
+      </div>
+      <div class="cal-days-header">
+        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-cell empty"></div>
+        <div class="cal-cell empty"></div>
+        <div class="cal-cell booked booked-sky">1</div>
+        <div class="cal-cell booked booked-coral">2</div>
+        <div class="cal-cell booked booked-mint">3</div>
+        <div class="cal-cell">4</div>
+        <div class="cal-cell">5</div>
+        <div class="cal-cell booked booked-amber">6</div>
+        <div class="cal-cell booked booked-sky">7</div>
+        <div class="cal-cell">8</div>
+        <div class="cal-cell booked booked-mint">9</div>
+        <div class="cal-cell booked booked-coral">10</div>
+        <div class="cal-cell">11</div>
+        <div class="cal-cell">12</div>
+        <div class="cal-cell booked booked-sky">13</div>
+        <div class="cal-cell today">14</div>
+        <div class="cal-cell booked booked-amber">15</div>
+        <div class="cal-cell">16</div>
+        <div class="cal-cell booked booked-mint">17</div>
+        <div class="cal-cell">18</div>
+        <div class="cal-cell">19</div>
+        <div class="cal-cell booked booked-coral">20</div>
+        <div class="cal-cell booked booked-sky">21</div>
+        <div class="cal-cell">22</div>
+        <div class="cal-cell booked booked-amber">23</div>
+        <div class="cal-cell booked booked-mint">24</div>
+        <div class="cal-cell">25</div>
+        <div class="cal-cell">26</div>
+        <div class="cal-cell">27</div>
+        <div class="cal-cell booked booked-coral">28</div>
+        <div class="cal-cell booked booked-sky">29</div>
+        <div class="cal-cell">30</div>
+        <div class="cal-cell booked booked-amber">31</div>
+      </div>
+      <div class="cal-upcoming">
+        <div class="cal-appt">
+          <div class="appt-dot" style="background:var(--sky)"></div>
+          <div class="appt-info">
+            <div class="appt-name">Sarah Mitchell</div>
+            <div class="appt-time">9:00 AM · Haircut & Colour</div>
+          </div>
+          <div class="appt-staff">Emma</div>
+        </div>
+        <div class="cal-appt">
+          <div class="appt-dot" style="background:var(--coral)"></div>
+          <div class="appt-info">
+            <div class="appt-name">James Owens</div>
+            <div class="appt-time">10:30 AM · Full Body Massage</div>
+          </div>
+          <div class="appt-staff">Dan</div>
+        </div>
+        <div class="cal-appt">
+          <div class="appt-dot" style="background:var(--mint)"></div>
+          <div class="appt-info">
+            <div class="appt-name">The Patel Family</div>
+            <div class="appt-time">12:00 PM · Caravan Rental</div>
+          </div>
+          <div class="appt-staff">Auto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="use-cases">
+  <div class="section-label">Works for everyone</div>
+  <h2>If it can be booked, <em>BookN does it</em></h2>
+  <p class="section-intro">One platform, every industry. BookN adapts to the way your business works — not the other way around.</p>
+  <div class="tags-cloud">
+    <div class="tag tag-1"><span class="tag-icon">✂️</span> Hair Salons</div>
+    <div class="tag tag-2"><span class="tag-icon">💅</span> Nail Technicians</div>
+    <div class="tag tag-3"><span class="tag-icon">🍽️</span> Restaurants</div>
+    <div class="tag tag-4"><span class="tag-icon">🏥</span> Medical Clinics</div>
+    <div class="tag tag-1"><span class="tag-icon">💈</span> Barbers</div>
+    <div class="tag tag-2"><span class="tag-icon">🎪</span> Party Entertainers</div>
+    <div class="tag tag-3"><span class="tag-icon">🚐</span> Caravan Rentals</div>
+    <div class="tag tag-4"><span class="tag-icon">🏨</span> Hotels & B&Bs</div>
+    <div class="tag tag-1"><span class="tag-icon">💪</span> Personal Trainers</div>
+    <div class="tag tag-2"><span class="tag-icon">🐾</span> Dog Groomers</div>
+    <div class="tag tag-3"><span class="tag-icon">🎸</span> Music Teachers</div>
+    <div class="tag tag-4"><span class="tag-icon">🧹</span> Cleaning Services</div>
+    <div class="tag tag-1"><span class="tag-icon">🚗</span> Car Hire</div>
+    <div class="tag tag-2"><span class="tag-icon">🏊</span> Swimming Lessons</div>
+    <div class="tag tag-3"><span class="tag-icon">📸</span> Photographers</div>
+    <div class="tag tag-4"><span class="tag-icon">🧘</span> Yoga Studios</div>
+    <div class="tag tag-1"><span class="tag-icon">🏕️</span> Holiday Parks</div>
+    <div class="tag tag-2"><span class="tag-icon">🦷</span> Dentists</div>
+    <div class="tag tag-3"><span class="tag-icon">⚽</span> Sports Coaches</div>
+    <div class="tag tag-4"><span class="tag-icon">✨</span> … and so much more</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-label">As easy as 1, 2, 3</div>
+  <h2>Up and running in <em>minutes.</em></h2>
+  <p class="section-intro">We built BookN for real people running real businesses. No technical knowledge needed — ever.</p>
+  <div class="steps">
+    <div class="step step-1 fade-in">
+      <span class="step-number">1</span>
+      <span class="step-icon">🏗️</span>
+      <h3>Set Up Your Business</h3>
+      <p>Tell us about your business, add your services, and configure your availability. Our friendly setup wizard holds your hand every step of the way.</p>
+    </div>
+    <div class="step step-2 fade-in">
+      <span class="step-number">2</span>
+      <span class="step-icon">🔗</span>
+      <h3>Share Your Booking Page</h3>
+      <p>Embed the calendar on your existing website, share a direct link, or launch your brand new BookN-powered website — all in a couple of clicks.</p>
+    </div>
+    <div class="step step-3 fade-in">
+      <span class="step-number">3</span>
+      <span class="step-icon">🎉</span>
+      <h3>Watch the Bookings Roll In</h3>
+      <p>Customers book around the clock. Your staff are notified, reminders are sent automatically, and you stay in complete control from one simple dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">Packed with features</div>
+  <h2>Everything you need, <em>nothing you don't.</em></h2>
+  <p class="section-intro">BookN is powerful enough for complex businesses, yet simple enough that anyone can use it on day one.</p>
+  <div class="features-grid">
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-sky">📅</div>
+      <h3>Smart Booking Calendar</h3>
+      <p>A beautifully clear calendar that works for any type of booking — appointments, rentals, rooms, resources and more. Fully configurable per service type.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-coral">👥</div>
+      <h3>Staff Scheduling & Assignment</h3>
+      <p>Automatically distribute bookings across your team based on availability, skill, or workload. Or let your customers choose their preferred staff member.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-mint">📊</div>
+      <h3>Financial Dashboard</h3>
+      <p>A real-time view of revenue, best-performing services, booking trends, and forecasting — everything a business owner actually needs to see.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-amber">🏢</div>
+      <h3>Multi-Business Management</h3>
+      <p>Run multiple locations or brands from one account. Perfect for franchises, group practices, or entrepreneurs with more than one business.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-navy">💳</div>
+      <h3>Payments & Deposits</h3>
+      <p>Take full payment, deposits, or nothing at all — configurable on a per-service basis. Reduce no-shows by securing bookings with a card upfront.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-sky">📲</div>
+      <h3>SMS & Email Reminders</h3>
+      <p>Automatic reminders sent by both SMS and email, slashing no-shows. Fully customisable timing and messaging to match your brand voice.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-coral">📦</div>
+      <h3>Resource Grouping</h3>
+      <p>Group resources like rooms, cars, or equipment and assign them intelligently. Ideal for holiday parks, hire companies, and multi-chair salons.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-mint">✅</div>
+      <h3>Automated Follow-Up Tasks</h3>
+      <p>Automatically trigger tasks after a booking is completed — such as sending aftercare instructions, requesting reviews, or scheduling a follow-up call.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-amber">🏡</div>
+      <h3>On-Site & Off-Site Appointments</h3>
+      <p>Whether your staff travel to clients or customers come to you — BookN handles both, with full location and travel management built in.</p>
+    </div>
+
+    <div class="feature-card fade-in">
+      <div class="feature-icon fi-sky">📤</div>
+      <h3>Data Exports & Integrations</h3>
+      <p>Export your customer data to your favourite email marketing tools. Your data stays yours — always accessible and never locked in.</p>
+    </div>
+
+    <div class="feature-card wide fade-in">
+      <div class="feature-icon fi-navy">🎨</div>
+      <div class="feature-tag">Free Included</div>
+      <h3>Free Website Builder & Templates</h3>
+      <p>Starting from scratch? No problem. BookN includes a beautiful drag-and-drop website builder with industry-specific templates. Launch a professional online presence alongside your booking system — completely free. Perfect for new businesses getting off the ground without needing a web developer.</p>
+    </div>
+
+    <div class="feature-card wide fade-in">
+      <div class="feature-icon fi-mint">📋</div>
+      <h3>Staff Holiday, Sick Days & Performance Tracking</h3>
+      <p>The admin portal gives you a crystal-clear picture of your whole team. Approve holiday requests, track sick days, monitor individual performance, and see who your star performers are — all without spreadsheets or sticky notes.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- EMBED / DEPLOY OPTIONS -->
+<section class="embed">
+  <div class="section-label">Go live your way</div>
+  <h2>Three ways to <em>take bookings</em></h2>
+  <p class="section-intro">However you want your customers to reach you, BookN has you covered — no developer required for any of these.</p>
+  <div class="embed-options">
+    <div class="embed-card fade-in">
+      <div class="embed-visual embed-v1">🔌</div>
+      <h3>Embed on Your Website</h3>
+      <p>Drop a single line of code onto any existing website and your live booking calendar appears instantly. Works with Wix, Squarespace, Wordpress, or any platform.</p>
+    </div>
+    <div class="embed-card fade-in">
+      <div class="embed-visual embed-v2">🔗</div>
+      <h3>Direct Booking Link</h3>
+      <p>Share a link on your social media, WhatsApp, email footer, or anywhere you like. Customers click and book — it really is that simple.</p>
+    </div>
+    <div class="embed-card fade-in">
+      <div class="embed-visual embed-v3">🌐</div>
+      <h3>Free BookN Website</h3>
+      <p>Use our built-in website builder for a complete online home — booking system included from day one. Choose a template, customise your brand, and go live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTALS -->
+<section class="portals">
+  <div class="section-label">Built for everyone involved</div>
+  <h2>Three powerful <em>portals</em></h2>
+  <p class="section-intro">BookN keeps business owners, staff, and customers all on the same page — each with their own tailored experience.</p>
+  <div class="portals-grid">
+    <div class="portal-card pc-admin fade-in">
+      <h3>🏛️ Admin Portal</h3>
+      <p>The command centre for business owners. Full visibility of everything, everywhere, all in one place.</p>
+      <ul class="portal-list">
+        <li>Revenue & financial reports</li>
+        <li>Best performing services</li>
+        <li>Staff holidays & sick days</li>
+        <li>Multi-business overview</li>
+        <li>Subscription & billing management</li>
+        <li>Full system configuration</li>
+      </ul>
+    </div>
+    <div class="portal-card pc-staff fade-in">
+      <h3>👩‍💼 Staff Portal</h3>
+      <p>Everything your team needs to stay organised, professional, and on time — in their pocket.</p>
+      <ul class="portal-list">
+        <li>View upcoming bookings</li>
+        <li>Customer details & history</li>
+        <li>Off-site appointment directions</li>
+        <li>Holiday request submission</li>
+        <li>Task management</li>
+        <li>Performance overview</li>
+      </ul>
+    </div>
+    <div class="portal-card pc-customer fade-in">
+      <h3>😊 Customer Portal</h3>
+      <p>Give your customers the freedom to manage themselves — on their terms, at any time of day.</p>
+      <ul class="portal-list">
+        <li>View all upcoming bookings</li>
+        <li>Cancel or reschedule easily</li>
+        <li>Make & manage payments</li>
+        <li>Booking history</li>
+        <li>Receive reminders & updates</li>
+        <li>Self-service (configurable per service)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BIG SCREEN MODE -->
+<section class="bigscreen">
+  <div class="section-label">For your reception area</div>
+  <h2>Big Screen <em>Mode 📺</em></h2>
+  <p class="section-intro">Display a live, beautiful view of current and upcoming customers on any TV or monitor — your reception area will never look more professional.</p>
+  <div class="bigscreen-demo fade-in">
+    <div class="bs-header">
+      <div class="bs-logo">
+        <div class="bs-logo-icon">B</div>
+        <div>
+          <div class="bs-logo-text">Serenity Salon</div>
+          <div class="bs-logo-sub"><span class="bs-pulse"></span>Live — Today's Schedule</div>
+        </div>
+      </div>
+      <div class="bs-time">10:17 AM</div>
+    </div>
+    <div class="bs-queue">
+      <div class="bs-now">
+        <div class="bs-label">Now Serving</div>
+        <div class="bs-name">Sarah Mitchell</div>
+        <div class="bs-info">✂️ Haircut & Colour · Chair 2 · Emma</div>
+      </div>
+      <div class="bs-next">
+        <div class="bs-label">Coming Up Next</div>
+        <div class="bs-next-item">
+          <div class="bs-next-time">10:30</div>
+          <div>
+            <div class="bs-next-name">James Owens</div>
+            <div class="bs-next-service">Full Body Massage · Dan</div>
+          </div>
+        </div>
+        <div class="bs-next-item">
+          <div class="bs-next-time">11:00</div>
+          <div>
+            <div class="bs-next-name">Lisa Thompson</div>
+            <div class="bs-next-service">Gel Nails · Rachel</div>
+          </div>
+        </div>
+        <div class="bs-next-item">
+          <div class="bs-next-time">11:30</div>
+          <div>
+            <div class="bs-next-name">Mike Nguyen</div>
+            <div class="bs-next-service">Men's Cut & Beard · Tom</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI & SMART FEATURES -->
+<section class="smart">
+  <div class="section-label">Intelligent booking</div>
+  <h2 style="color:white;">AI-powered. <span style="color:var(--mint);">Beautifully smart.</span></h2>
+  <p class="section-intro">BookN's optional AI layer takes the busywork off your plate — predicting what your customers need before they even think to ask.</p>
+  <div class="smart-grid">
+    <div class="smart-card fade-in">
+      <div class="feature-icon fi-mint" style="border-color:rgba(255,255,255,0.15)">🤖</div>
+      <h3>AI Rebooking Predictions</h3>
+      <p>BookN's AI learns from your customers' booking history and intelligently predicts when they're likely to need their next appointment. It can automatically reach out with a reminder or invitation to book — keeping your chair full and your customers loyal.</p>
+    </div>
+    <div class="smart-card fade-in">
+      <div class="feature-icon fi-amber" style="border-color:rgba(255,255,255,0.15)">⚡</div>
+      <h3>Automatic Booking Distribution</h3>
+      <p>Let BookN automatically assign bookings to the right staff member based on availability, workload, or skillset. Or flip a switch and let customers pick their favourite team member. Either way, it just works.</p>
+    </div>
+    <div class="smart-card fade-in">
+      <div class="feature-icon fi-sky" style="border-color:rgba(255,255,255,0.15)">💬</div>
+      <h3>SMS & Email Reminders</h3>
+      <p>Automated reminders sent via both SMS and email ensure your customers never forget their appointment. Reduce costly no-shows without lifting a finger. Fully customisable timing, tone, and branding.</p>
+    </div>
+    <div class="smart-card fade-in">
+      <div class="feature-icon fi-coral" style="border-color:rgba(255,255,255,0.15)">🔄</div>
+      <h3>Automated Follow-Up Workflows</h3>
+      <p>After a completed booking, automatically trigger follow-up actions — send aftercare advice, a review request, a re-booking nudge, or assign a task to a team member. Smart automation that saves hours every week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAIN & SUBDOMAIN -->
+<section class="domain">
+  <div class="section-label">Your brand, your home</div>
+  <h2>A home on the web, <em>free or custom</em></h2>
+  <p class="section-intro">Every BookN account comes with a free subdomain ready to use from day one. Growing? Bring your own domain for a fully branded experience.</p>
+  <div class="domain-cards">
+    <div class="domain-card fade-in">
+      <div class="free-pill">✓ Free with every account</div>
+      <div class="domain-url">mybusiness.bookn.uk</div>
+      <h3>Your Free Subdomain</h3>
+      <p>Every account gets a free, instant subdomain on bookn.uk. Share it, print it, link to it — it's live the moment you sign up. Perfect for getting started without any extra setup or cost.</p>
+    </div>
+    <div class="domain-card fade-in">
+      <div class="paid-pill">⭐ Paid Plans</div>
+      <div class="domain-url">yourbusiness.com</div>
+      <h3>Your Own Custom Domain</h3>
+      <p>Take your brand to the next level by connecting your own domain name. Your booking page lives at your address, under your brand — giving customers full confidence and professionalism from the very first click.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING OVERVIEW -->
+<section class="pricing">
+  <div class="section-label">Simple, honest pricing</div>
+  <h2>A plan for every <em>business</em></h2>
+  <p class="section-intro">Start free, grow as you go. Every plan includes a generous booking allowance — and you can always top up when you need to.</p>
+  <div class="plans">
+    <div class="plan fade-in">
+      <span class="plan-label">Starter</span>
+      <div class="plan-name">Free</div>
+      <div class="plan-price">£0</div>
+      <p class="plan-sub">per month · no card needed</p>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>1 Business</li>
+        <li>Up to 20 bookings/month</li>
+        <li>Free bookn.uk subdomain</li>
+        <li>Customer portal</li>
+        <li>Email reminders</li>
+        <li>Website builder & templates</li>
+        <li>Perfect for testing & starting out</li>
+      </ul>
+    </div>
+    <div class="plan fade-in">
+      <span class="plan-label">Essential</span>
+      <div class="plan-name">Essential</div>
+      <div class="plan-price">£X</div>
+      <p class="plan-sub">per month · billed monthly</p>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>1 Business</li>
+        <li>300 bookings/month</li>
+        <li>Custom domain support</li>
+        <li>SMS & email reminders</li>
+        <li>Staff portal</li>
+        <li>Admin portal</li>
+        <li>Payment processing</li>
+      </ul>
+    </div>
+    <div class="plan featured fade-in">
+      <span class="plan-label">⭐ Most Popular</span>
+      <div class="plan-name">Professional</div>
+      <div class="plan-price">£X</div>
+      <p class="plan-sub">per month · billed monthly</p>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>Up to 3 Businesses</li>
+        <li>700 bookings/month</li>
+        <li>All Essential features</li>
+        <li>AI smart rebooking</li>
+        <li>Big Screen mode</li>
+        <li>Advanced staff management</li>
+        <li>Data export tools</li>
+        <li>Follow-up automation</li>
+      </ul>
+    </div>
+    <div class="plan fade-in">
+      <span class="plan-label">Enterprise</span>
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">£X</div>
+      <p class="plan-sub">per month · billed monthly</p>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>Unlimited Businesses</li>
+        <li>Unlimited bookings</li>
+        <li>All Professional features</li>
+        <li>Priority support</li>
+        <li>Custom onboarding</li>
+        <li>White-label options</li>
+        <li>Volume booking top-ups</li>
+      </ul>
+    </div>
+  </div>
+  <div class="coming-soon-note fade-in">
+    <p>🎁 <span>Full pricing will be revealed at launch.</span> All plans allow you to purchase additional bookings at any time — so you never have to worry about running out at a busy moment.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="section-label" style="color:rgba(255,255,255,0.8); justify-content:center;">
+    <span style="display:block;width:24px;height:3px;background:rgba(255,255,255,0.6);border-radius:2px;"></span>
+    We're almost ready
+  </div>
+  <h2>BookN is <em style="color:var(--amber);">coming soon</em></h2>
+  <p class="section-intro" style="margin:0 auto 40px;">The most powerful, friendly, and flexible booking platform for UK businesses is nearly here. Be ready when we launch at:</p>
+  <div class="cta-badge">🌐 <span class="cta-url">bookn.uk</span></div>
+  <p class="cta-sub">No sign-up. No email. Just watch this space — it'll be worth it.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>BookN</strong> · Smart booking for every business · <strong>bookn.uk</strong></p>
+  <p style="margin-top:8px;">© 2026 BookN. All rights reserved. Built for businesses that mean business.</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Calendar cell hover effect
+  document.querySelectorAll('.cal-cell:not(.empty)').forEach(cell => {
+    cell.addEventListener('click', function() {
+      document.querySelectorAll('.cal-cell').forEach(c => {
+        if (c !== this) c.classList.remove('today');
+      });
+      this.classList.toggle('today');
+    });
+  });
+
+  // Animate tags sequentially
+  document.querySelectorAll('.tag').forEach((tag, i) => {
+    tag.style.animationDelay = `${i * 0.06}s`;
+  });
+</script>
+</body>
+</html>
